@@ -129,9 +129,13 @@ class AndroidLogViewModel extends BaseViewModel with PackageHelpMixin {
           logList.add(line);
           notifyListeners();
           if (isShowLast) {
-            scrollController.jumpTo(
-              scrollController.position.maxScrollExtent,
-            );
+            //bugfix: ScrollController not attached to any scroll views.
+            if(scrollController.hasClients){
+              scrollController.jumpTo(
+                scrollController.position.maxScrollExtent,
+              );
+            }
+
           }
         }
       });
